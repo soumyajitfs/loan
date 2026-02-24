@@ -1,0 +1,102 @@
+{
+  "kpis": {
+    "totalSettlementsThisWeek": 128,
+    "settlementsAtRisk": 17,
+    "averageTimeToSettlementDays": 9.4,
+    "slaBreachPercentage": 6.2,
+    "pexaAutoCreationRate": 82,
+    "complianceExceptions": 3
+  },
+  "pipeline": {
+    "readiness": { "count": 18, "percentage": 14, "risk": "amber", "delayedPercentage": 12, "trendDelta": 3 },
+    "documents": { "count": 26, "percentage": 20, "risk": "green", "delayedPercentage": 8, "trendDelta": -2 },
+    "pexaPreparation": { "count": 21, "percentage": 16, "risk": "amber", "delayedPercentage": 15, "trendDelta": 4 },
+    "validation": { "count": 19, "percentage": 15, "risk": "red", "delayedPercentage": 29, "trendDelta": 6 },
+    "execution": { "count": 25, "percentage": 19, "risk": "green", "delayedPercentage": 9, "trendDelta": -1 },
+    "handover": { "count": 19, "percentage": 16, "risk": "green", "delayedPercentage": 7, "trendDelta": -1 }
+  },
+  "compliance": {
+    "autoAuditPercent": 91,
+    "autoArchivePercent": 87,
+    "complianceExceptionCount": 3,
+    "manualInterventionRate": 13
+  },
+  "friction": [
+    { "stage": "Readiness", "impactedPercent": 16, "trendDelta": 2, "topRootCause": "Borrower profile mismatch - 6 cases" },
+    { "stage": "Documents", "impactedPercent": 18, "trendDelta": -1, "topRootCause": "Unsigned disclosure pack - 8 cases" },
+    { "stage": "PEXA", "impactedPercent": 21, "trendDelta": 4, "topRootCause": "Late workspace setup - 9 cases" },
+    { "stage": "Validation", "impactedPercent": 24, "trendDelta": 6, "topRootCause": "ID mismatch - 11 cases" },
+    { "stage": "Execution", "impactedPercent": 12, "trendDelta": 1, "topRootCause": "Funds reconciliation delay - 5 cases" },
+    { "stage": "Handover", "impactedPercent": 9, "trendDelta": -2, "topRootCause": "Manual archive touchpoint - 3 cases" }
+  ],
+  "settlements": [
+    {
+      "loanId": "RZ-2026-00127",
+      "borrowerName": "James Thornton",
+      "brokerName": "Apex Finance Group",
+      "settlementDate": "2026-03-04",
+      "daysToSettlement": 3,
+      "currentStage": "Validation",
+      "readinessScore": 82,
+      "riskScore": 68,
+      "riskLevel": "High",
+      "riskReason": "Missing signed mortgage document",
+      "slaDeadline": "2026-03-02T17:00:00",
+      "missingDocuments": true,
+      "daysInPexa": 2,
+      "validationFailedOnce": true,
+      "historicalDelayPattern": true
+    },
+    {
+      "loanId": "RZ-2026-00131",
+      "borrowerName": "Emily Barrett",
+      "brokerName": "Harbor Lending Partners",
+      "settlementDate": "2026-03-06",
+      "daysToSettlement": 5,
+      "currentStage": "PEXA",
+      "readinessScore": 89,
+      "riskScore": 41,
+      "riskLevel": "Medium",
+      "riskReason": "Trust account funding confirmation pending",
+      "slaDeadline": "2026-03-03T15:00:00",
+      "missingDocuments": false,
+      "daysInPexa": 4,
+      "validationFailedOnce": false,
+      "historicalDelayPattern": true
+    },
+    {
+      "loanId": "RZ-2026-00134",
+      "borrowerName": "Olivia Chen",
+      "brokerName": "Summit Advisory",
+      "settlementDate": "2026-03-07",
+      "daysToSettlement": 6,
+      "currentStage": "Documents",
+      "readinessScore": 93,
+      "riskScore": 24,
+      "riskLevel": "Low",
+      "riskReason": "No active blockers",
+      "slaDeadline": "2026-03-04T12:00:00",
+      "missingDocuments": false,
+      "daysInPexa": 0,
+      "validationFailedOnce": false,
+      "historicalDelayPattern": false
+    },
+    {
+      "loanId": "RZ-2026-00139",
+      "borrowerName": "Michael Ward",
+      "brokerName": "Apex Finance Group",
+      "settlementDate": "2026-03-05",
+      "daysToSettlement": 4,
+      "currentStage": "Validation",
+      "readinessScore": 77,
+      "riskScore": 72,
+      "riskLevel": "High",
+      "riskReason": "Title verification mismatch",
+      "slaDeadline": "2026-03-02T11:30:00",
+      "missingDocuments": true,
+      "daysInPexa": 1,
+      "validationFailedOnce": true,
+      "historicalDelayPattern": true
+    }
+  ]
+}
