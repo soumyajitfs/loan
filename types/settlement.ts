@@ -77,3 +77,4 @@ export interface SettlementDataset {
 }
 
 export type AppRole = "borrower" | "broker" | "lender" | "pexa" | "compliance";
+export type UserRole = "Borrower" | "Broker" | "Lender";

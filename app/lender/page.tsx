@@ -8,6 +8,8 @@ import ReadinessCard from "@/components/ReadinessCard";
 import settlementsData from "@/data/settlements.json";
 import { getStageRiskFromDelayedRate, normalizeStage } from "@/lib/analytics";
 import { getTrafficLightState } from "@/lib/control-tower";
+import { filterSettlementsByRole } from "@/lib/role-access";
+import { useRole } from "@/lib/role-context";
 import { SettlementDataset } from "@/types/settlement";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -24,9 +26,11 @@ const pipelineLabels = [
 ] as const;
 
 export default function LenderPage() {
+  const { role } = useRole();
   const [stageFilter, setStageFilter] = useState<string | null>(null);
   const [fundingRef, setFundingRef] = useState("FND-88231");
   const [fundingAmount, setFundingAmount] = useState("1,250,000");
+  const roleVisibleSettlements = useMemo(() => filterSettlementsByRole(role, data.settlements), [role]);
 
   const derivedPipeline = useMemo(
     () =>
@@ -45,27 +49,27 @@ export default function LenderPage() {
   );
 
   const visibleApplications = useMemo(() => {
-    if (!stageFilter) return data.settlements;
-    return data.settlements.filter((item) => normalizeStage(item.currentStage) === stageFilter);
-  }, [stageFilter]);
+    if (!stageFilter) return roleVisibleSettlements;
+    return roleVisibleSettlements.filter((item) => normalizeStage(item.currentStage) === stageFilter);
+  }, [roleVisibleSettlements, stageFilter]);
 
   const trafficSummary = useMemo(() => {
-    const total = data.settlements.length || 1;
-    const green = data.settlements.filter((item) => getTrafficLightState(item) === "GREEN").length;
-    const amber = data.settlements.filter((item) => getTrafficLightState(item) === "AMBER").length;
-    const red = data.settlements.filter((item) => getTrafficLightState(item) === "RED").length;
+    const total = roleVisibleSettlements.length || 1;
+    const green = roleVisibleSettlements.filter((item) => getTrafficLightState(item) === "GREEN").length;
+    const amber = roleVisibleSettlements.filter((item) => getTrafficLightState(item) === "AMBER").length;
+    const red = roleVisibleSettlements.filter((item) => getTrafficLightState(item) === "RED").length;
     return {
       green,
       amber,
       red,
       readinessPercent: Math.round((green / total) * 100),
     };
-  }, []);
+  }, [roleVisibleSettlements]);
 
   return (
     <div className="space-y-6">
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <KPI label="Portfolio Loans" value={String(data.settlements.length)} trend="Enterprise visibility enabled" trendTone="positive" />
+        <KPI label="Portfolio Loans" value={String(roleVisibleSettlements.length)} trend="Enterprise visibility enabled" trendTone="positive" />
         <KPI label="Ready (Green)" value={String(trafficSummary.green)} trend="All readiness gates passed" trendTone="positive" />
         <KPI label="At Risk (Amber)" value={String(trafficSummary.amber)} trend="Minor blockers under watch" trendTone="neutral" />
         <KPI label="Blocked (Red)" value={String(trafficSummary.red)} trend="Critical blockers active" trendTone="negative" />
@@ -94,7 +98,7 @@ export default function LenderPage() {
 
       <section className="grid gap-6 xl:grid-cols-3">
         <Card title="Loan Review Panel" subtitle="Enterprise review queue across all borrowers and brokers" className="xl:col-span-2">
-          <DataTable rows={data.settlements} stageFilter={stageFilter} />
+          <DataTable rows={roleVisibleSettlements} stageFilter={stageFilter} />
         </Card>
         <div className="space-y-6">
           <Card title="Funding Details Entry">

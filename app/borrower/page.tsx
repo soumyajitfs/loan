@@ -1,15 +1,30 @@
+"use client";
+
 import Card from "@/components/Card";
 import StatusBadge from "@/components/StatusBadge";
 import settlementsData from "@/data/settlements.json";
+import { filterSettlementsByRole } from "@/lib/role-access";
+import { useRole } from "@/lib/role-context";
 import { SettlementDataset } from "@/types/settlement";
+import { useMemo } from "react";
 
 const data = settlementsData as SettlementDataset;
-const myApplications = data.settlements.slice(0, 2);
-const currentApplication = myApplications[0];
 
 const tracker = ["Readiness", "Documents", "Validation", "Execution", "Handover"] as const;
 
 export default function BorrowerPage() {
+  const { role } = useRole();
+  const myApplications = useMemo(() => filterSettlementsByRole(role, data.settlements), [role]);
+  const currentApplication = myApplications[0];
+
+  if (!currentApplication) {
+    return (
+      <Card title="Borrower Dashboard">
+        <p className="text-sm text-slate-700">No applications available for the selected role profile.</p>
+      </Card>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <section className="grid gap-6 xl:grid-cols-3">

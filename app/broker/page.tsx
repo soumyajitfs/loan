@@ -3,36 +3,38 @@
 import Card from "@/components/Card";
 import StatusBadge from "@/components/StatusBadge";
 import settlementsData from "@/data/settlements.json";
+import { filterSettlementsByRole } from "@/lib/role-access";
+import { useRole } from "@/lib/role-context";
+import { SettlementItem } from "@/types/settlement";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-interface BrokerApplication {
-  loanId: string;
-  borrowerName: string;
-  brokerName: string;
-  currentStage: string;
-  readinessScore: number;
-  riskLevel: string;
-  missingDocuments?: boolean;
-  validationFailedOnce?: boolean;
-}
-
-const assignedApps = settlementsData.settlements as BrokerApplication[];
+const allApps = settlementsData.settlements as SettlementItem[];
 
 export default function BrokerPage() {
+  const { role } = useRole();
+  const assignedApps = useMemo(() => filterSettlementsByRole(role, allApps), [role]);
   const groupedByCustomer = useMemo(() => {
-    return assignedApps.reduce<Record<string, BrokerApplication[]>>((acc, item) => {
+    return assignedApps.reduce<Record<string, SettlementItem[]>>((acc, item) => {
       if (!acc[item.borrowerName]) {
         acc[item.borrowerName] = [];
       }
       acc[item.borrowerName].push(item);
       return acc;
     }, {});
-  }, []);
+  }, [assignedApps]);
 
   const customers = Object.keys(groupedByCustomer);
   const [selectedCustomer, setSelectedCustomer] = useState(customers[0] ?? "");
   const selectedApps = groupedByCustomer[selectedCustomer] ?? [];
+
+  if (assignedApps.length === 0) {
+    return (
+      <Card title="Broker Dashboard">
+        <p className="text-sm text-slate-700">No assigned applications available for the selected role profile.</p>
+      </Card>
+    );
+  }
 
   const totalRequiredDocs = assignedApps.length * 6;
   const submittedDocs = assignedApps.reduce((sum, item) => sum + (item.missingDocuments ? 4 : 6), 0);

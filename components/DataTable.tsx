@@ -3,6 +3,8 @@
 import SLACountdown from "@/components/SLACountdown";
 import StatusBadge from "@/components/StatusBadge";
 import { calculatePredictiveDelayRisk, getPredictiveRiskBand, normalizeStage } from "@/lib/analytics";
+import { filterSettlementsByRole } from "@/lib/role-access";
+import { useRole } from "@/lib/role-context";
 import { SettlementItem } from "@/types/settlement";
 import { useMemo, useState } from "react";
 
@@ -15,13 +17,15 @@ interface DataTableProps {
 }
 
 export default function DataTable({ rows, stageFilter = null }: DataTableProps) {
+  const { role } = useRole();
   const [query, setQuery] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("daysToSettlement");
   const [ascending, setAscending] = useState(true);
 
   const visibleRows = useMemo(() => {
+    const roleFiltered = filterSettlementsByRole(role, rows);
     const lowered = query.toLowerCase();
-    const filtered = rows.filter((row) => {
+    const filtered = roleFiltered.filter((row) => {
       const searchMatch = [row.loanId, row.borrowerName, row.brokerName, row.currentStage, row.riskLevel]
         .join(" ")
         .toLowerCase()
@@ -45,7 +49,7 @@ export default function DataTable({ rows, stageFilter = null }: DataTableProps) 
       return ascending ? String(first).localeCompare(String(second)) : String(second).localeCompare(String(first));
     });
     return sorted;
-  }, [ascending, query, rows, sortKey, stageFilter]);
+  }, [ascending, query, role, rows, sortKey, stageFilter]);
 
   const setSort = (key: SortKey) => {
     if (key === sortKey) {
