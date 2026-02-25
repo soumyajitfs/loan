@@ -46,11 +46,11 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
-        <KPI label="Total Settlements" value={String(data.kpis.totalSettlementsThisWeek)} trend="+8.4% vs last week" trendTone="positive" />
+        <KPI label="Total Loans" value={String(data.kpis.totalSettlementsThisWeek)} trend="Portfolio in scope" trendTone="positive" />
         <KPI label="At Risk" value={String(data.kpis.settlementsAtRisk)} trend="+2 from yesterday" trendTone="negative" />
         <KPI label="Average Delays (Days)" value={`${data.kpis.averageTimeToSettlementDays}d`} trend="-0.6d week over week" trendTone="positive" />
         <KPI label="SLA Breach %" value={`${data.kpis.slaBreachPercentage}%`} trend="-1.1pp trend" trendTone="positive" />
-        <KPI label="PEXA Automation %" value={`${data.kpis.pexaAutoCreationRate}%`} trend="+4.2pp this month" trendTone="positive" />
+        <KPI label="PEXA Automation %" value={`${data.kpis.pexaAutoCreationRate}%`} trend="105 auto-created workspaces" trendTone="positive" />
         <KPI label="Compliance Exceptions" value={String(data.kpis.complianceExceptions)} trend="Same as last week" trendTone="neutral" />
       </section>
 

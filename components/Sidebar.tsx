@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { label: "Dashboard", href: "/dashboard" },
+  { label: "Control Tower", href: "/control-tower" },
+  { label: "Borrower Journey", href: "/stakeholder-journey" },
   { label: "Settlements", href: "/settlements" },
   { label: "Broker View", href: "/broker" },
   { label: "Lender View", href: "/lender" },

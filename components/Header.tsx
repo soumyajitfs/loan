@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 
 const titleMap: Record<string, string> = {
   "/dashboard": "Unified Digital Settlement Control Tower",
+  "/control-tower": "Unified Digital Settlement Control Tower",
+  "/stakeholder-journey": "Borrower Journey",
   "/borrower": "Borrower Dashboard",
   "/settlements": "Settlement Workbench",
   "/broker": "Broker View",
