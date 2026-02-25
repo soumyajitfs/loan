@@ -66,3 +66,9 @@ export interface SettlementDataset {
   friction: FrictionItem[];
   settlements: SettlementItem[];
 }
+
+export type UserRole =
+  | "COO"
+  | "Head of Operations"
+  | "Compliance Leader"
+  | "Broker Manager";

@@ -1,5 +1,6 @@
 "use client";
 
+import RoleSwitcher from "@/components/RoleSwitcher";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -38,6 +39,11 @@ export default function Sidebar() {
           );
         })}
       </nav>
+
+      <div className="rounded-lg bg-slate-900 p-3">
+        <p className="mb-2 text-xs uppercase tracking-wide text-slate-400">View as</p>
+        <RoleSwitcher />
+      </div>
 
     </aside>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import RoleSwitcher from "@/components/RoleSwitcher";
 import { usePathname } from "next/navigation";
 
 const titleMap: Record<string, string> = {
@@ -19,6 +20,7 @@ export default function Header() {
     <header className="flex h-20 items-center justify-between border-b border-slate-200 bg-white px-6">
       <h1 className="text-xl font-semibold text-slate-900">{title}</h1>
       <div className="flex items-center gap-4">
+        <RoleSwitcher compact />
         <button className="rounded-lg border border-slate-200 p-2 text-slate-600 hover:bg-slate-100" aria-label="Notifications">
           <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current stroke-2">
             <path d="M15 18H9m9-1v-5a6 6 0 10-12 0v5l-2 2h16l-2-2z" />
