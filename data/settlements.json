@@ -45,7 +45,16 @@
       "missingDocuments": true,
       "daysInPexa": 2,
       "validationFailedOnce": true,
-      "historicalDelayPattern": true
+      "historicalDelayPattern": true,
+      "borrowerDocumentCompletion": 83,
+      "requiredDocumentCount": 12,
+      "submittedDocumentCount": 10,
+      "brokerConditionsTotal": 6,
+      "brokerConditionsCleared": 5,
+      "complianceGateStatus": "Pending",
+      "pexaWorkspaceStatus": "Created",
+      "kycStatus": "Passed",
+      "criticalDocumentMissing": false
     },
     {
       "loanId": "RZ-2026-00131",
@@ -62,7 +71,16 @@
       "missingDocuments": false,
       "daysInPexa": 4,
       "validationFailedOnce": false,
-      "historicalDelayPattern": true
+      "historicalDelayPattern": true,
+      "borrowerDocumentCompletion": 92,
+      "requiredDocumentCount": 12,
+      "submittedDocumentCount": 11,
+      "brokerConditionsTotal": 6,
+      "brokerConditionsCleared": 6,
+      "complianceGateStatus": "Pending",
+      "pexaWorkspaceStatus": "Not Created",
+      "kycStatus": "Passed",
+      "criticalDocumentMissing": false
     },
     {
       "loanId": "RZ-2026-00134",
@@ -79,7 +97,16 @@
       "missingDocuments": false,
       "daysInPexa": 0,
       "validationFailedOnce": false,
-      "historicalDelayPattern": false
+      "historicalDelayPattern": false,
+      "borrowerDocumentCompletion": 100,
+      "requiredDocumentCount": 12,
+      "submittedDocumentCount": 12,
+      "brokerConditionsTotal": 5,
+      "brokerConditionsCleared": 5,
+      "complianceGateStatus": "Passed",
+      "pexaWorkspaceStatus": "Ready",
+      "kycStatus": "Passed",
+      "criticalDocumentMissing": false
     },
     {
       "loanId": "RZ-2026-00139",
@@ -96,7 +123,16 @@
       "missingDocuments": true,
       "daysInPexa": 1,
       "validationFailedOnce": true,
-      "historicalDelayPattern": true
+      "historicalDelayPattern": true,
+      "borrowerDocumentCompletion": 67,
+      "requiredDocumentCount": 12,
+      "submittedDocumentCount": 8,
+      "brokerConditionsTotal": 7,
+      "brokerConditionsCleared": 4,
+      "complianceGateStatus": "Failed",
+      "pexaWorkspaceStatus": "Not Created",
+      "kycStatus": "Failed",
+      "criticalDocumentMissing": true
     }
   ]
 }

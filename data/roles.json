@@ -1,6 +1,7 @@
 [
-  "COO",
-  "Head of Operations",
-  "Compliance Leader",
-  "Broker Manager"
+  { "id": "borrower", "label": "Borrower" },
+  { "id": "broker", "label": "Broker" },
+  { "id": "lender", "label": "Lender" },
+  { "id": "pexa", "label": "PEXA" },
+  { "id": "compliance", "label": "Compliance" }
 ]

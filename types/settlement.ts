@@ -43,6 +43,15 @@ export interface SettlementItem {
   daysInPexa?: number;
   validationFailedOnce?: boolean;
   historicalDelayPattern?: boolean;
+  borrowerDocumentCompletion?: number;
+  requiredDocumentCount?: number;
+  submittedDocumentCount?: number;
+  brokerConditionsTotal?: number;
+  brokerConditionsCleared?: number;
+  complianceGateStatus?: "Pending" | "Passed" | "Failed";
+  pexaWorkspaceStatus?: "Not Created" | "Created" | "Ready";
+  kycStatus?: "Pending" | "Passed" | "Failed";
+  criticalDocumentMissing?: boolean;
 }
 
 export interface ComplianceData {
@@ -67,8 +76,4 @@ export interface SettlementDataset {
   settlements: SettlementItem[];
 }
 
-export type UserRole =
-  | "COO"
-  | "Head of Operations"
-  | "Compliance Leader"
-  | "Broker Manager";
+export type AppRole = "borrower" | "broker" | "lender" | "pexa" | "compliance";

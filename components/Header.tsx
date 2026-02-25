@@ -4,8 +4,10 @@ import { usePathname } from "next/navigation";
 
 const titleMap: Record<string, string> = {
   "/dashboard": "Unified Digital Settlement Control Tower",
+  "/borrower": "Borrower Dashboard",
   "/settlements": "Settlement Workbench",
   "/broker": "Broker View",
+  "/lender": "Lender Command Center",
   "/pexa": "PEXA Automation",
   "/validation": "Validation Engine",
   "/compliance": "Compliance",
@@ -13,7 +15,8 @@ const titleMap: Record<string, string> = {
 
 export default function Header() {
   const pathname = usePathname();
-  const title = titleMap[pathname] ?? "Unified Digital Settlement Control Tower";
+  const titleMatch = Object.entries(titleMap).find(([route]) => pathname === route || pathname.startsWith(`${route}/`));
+  const title = titleMatch?.[1] ?? "Unified Digital Settlement Control Tower";
 
   return (
     <header className="flex h-20 items-center justify-between border-b border-slate-200 bg-white px-6">

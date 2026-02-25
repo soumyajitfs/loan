@@ -1,20 +1,38 @@
 "use client";
 
 import RoleSwitcher from "@/components/RoleSwitcher";
+import { useMockAuth } from "@/lib/mock-auth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navItems = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Settlements", href: "/settlements" },
-  { label: "Broker View", href: "/broker" },
-  { label: "PEXA Automation", href: "/pexa" },
-  { label: "Validation Engine", href: "/validation" },
-  { label: "Compliance", href: "/compliance" },
-];
+const navByRole = {
+  borrower: [
+    { label: "My Dashboard", href: "/borrower" },
+    { label: "My Applications", href: "/settlements" },
+  ],
+  broker: [
+    { label: "Broker Dashboard", href: "/broker" },
+    { label: "Assigned Applications", href: "/settlements" },
+  ],
+  lender: [
+    { label: "Lender Dashboard", href: "/lender" },
+    { label: "All Applications", href: "/settlements" },
+    { label: "Validation Engine", href: "/validation" },
+  ],
+  pexa: [
+    { label: "PEXA Dashboard", href: "/pexa" },
+    { label: "Settlement Queue", href: "/settlements" },
+  ],
+  compliance: [
+    { label: "Compliance Dashboard", href: "/compliance" },
+    { label: "Validation Engine", href: "/validation" },
+  ],
+} as const;
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { role } = useMockAuth();
+  const navItems = navByRole[role];
 
   return (
     <aside className="sticky top-0 flex h-screen w-72 shrink-0 flex-col overflow-y-auto border-r border-slate-200 bg-[#0f172a] px-5 py-6">
@@ -25,7 +43,7 @@ export default function Sidebar() {
 
       <nav className="flex flex-1 flex-col gap-2">
         {navItems.map((item) => {
-          const active = pathname === item.href;
+          const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
           return (
             <Link
               key={item.href}
